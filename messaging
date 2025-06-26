@@ -1,0 +1,13 @@
+package com.usuario.main.transacao.messaging;  // ou com.usuario.main.transacao
+
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CategoriaConsumer {
+
+    @RabbitListener(queues = "categoria.queue")
+    public void ouvirCategoria(String mensagem) {
+        System.out.println("[Consumer - Transações] Mensagem recebida: " + mensagem);
+    }
+}
