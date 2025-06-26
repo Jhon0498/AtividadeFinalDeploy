@@ -1,18 +1,12 @@
-Microsserviço de Usuario - Projeto Final Integrado - ADS 5º Semestre-
--
 Tema: Sistema Aplicativo com Backend em Microsserviços e Entrega Contínua
--
 
-
-Este projeto foi desenvolvido como parte das disciplinas:
+Disciplinas:
 
 PTBADOP: Ambiente de Desenvolvimento e Operações (Prof. Adriano Ferruzzi)
 
 PTBDAMS: Desenvolvimento de APIs e Microsserviços (Prof. Luiz Albano)
 
 PTBDDMA: Desenvolvimento para Dispositivos Móveis (Prof. Renato Montanher)
-
----
 
 Grupo:
 
@@ -26,118 +20,114 @@ Jhonathan – Deploy e Integração
 
 Matheus – Front-end Flutter
 
----
+Descrição Geral
 
-Descrição Geral do Projeto
+O sistema de Gestão Financeira Pessoal permite controle de gastos, cadastro de categorias e registro de transações financeiras. A arquitetura adota microsserviços independentes e mensagens assíncronas via RabbitMQ. O deploy é automatizado com práticas DevOps.
 
-O objetivo do projeto foi criar uma solução tecnológica para Gestão Financeira Pessoal, permitindo que os usuários controlem seus gastos, cadastrem categorias e registrem transações financeiras.
+Componentes:
 
----
+Aplicativo móvel em Flutter
 
-A solução contém:
+Backend: 3 microsserviços (Usuários, Categorias, Transações)
 
-Um aplicativo móvel funcional (em Flutter)
-Um backend dividido em 3 microsserviços independentes
-Mensageria assíncrona com RabbitMQ
-Deploy automatizado usando técnicas de DevOps
---- 
-Estrutura de Microsserviços (Backend)
+Mensageria RabbitMQ
 
-| Microsserviço | Responsável | Funcionalidades | Comunicação |
-|---|---|---|---|
-| **Usuários** | Gabriele | CRUD completo de usuários | Produz mensagens no RabbitMQ (Producer) |
-| **Categorias** | Letícia | CRUD de categorias | Produz mensagens para o RabbitMQ |
-| **Transações** | Ana | CRUD de transações | Consome mensagens do RabbitMQ |
+Deploy contínuo via Render (ou serviço equivalente)
 
----
+Status do Microsserviço de Usuário (completado por Gabriele)
 
-Microsserviço de Usuário
+Funcionalidades Implementadas
 
- Principais Funcionalidades:
+CRUD de Usuários (Spring Boot REST)
 
-- CRUD de Usuários (Endpoints REST via Spring Boot)
-- Integração com PostgreSQL
-- Documentação de API via Swagger
-- Configuração de CORS (para permitir chamadas do app Flutter)
-- Integração com RabbitMQ como **Producer**  
-  (Enviando mensagens para a fila `fila.usuario` em eventos de criação, atualização e exclusão de usuários)
+Integração com PostgreSQL local
 
----
+Documentação Swagger/OpenAPI
 
-## Tecnologias utilizadas no Microsserviço de Usuários:
+CORS configurado para Flutter
 
-- Java 17 + Spring Boot
-- Maven
-- PostgreSQL
-- RabbitMQ (via Spring AMQP)
-- Swagger / OpenAPI
-- Docker (RabbitMQ Container)
-- VS Code
+Producer RabbitMQ (fila fila.usuario)
 
----
-
-###  Exemplo de Configuração RabbitMQ no `application.properties`:
-
-
-spring.rabbitmq.host=localhost
- spring.rabbitmq.port=5672
- spring.rabbitmq.username=guest
- spring.rabbitmq.password=guest
-
----
-
-###  Estrutura de Pacotes do Microsserviço Usuário:
-
+Estrutura de Pacotes
 
 src/main/java/com/gabi/usuario
- ├── controller
- │ └── UsuarioController.java
- ├── model
- │ └── Usuario.java
- ├── repository
- │ └── UsuarioRepository.java
- ├── messaging
- │ ├── RabbitMQConfig.java
- │ └── UsuarioProducer.java
- └── config
- └── CorsConfig.java
+ ├── controller/UsuarioController.java
+ ├── model/Usuario.java
+ ├── repository/UsuarioRepository.java
+ ├── messaging/
+ │    ├── RabbitMQConfig.java
+ │    └── UsuarioProducer.java
+ └── config/CorsConfig.java
 
----
+Execução Local
 
-###  Como Rodar Localmente:
-
-1. **Subir o RabbitMQ com Docker:**
-
-```bash
+# RabbitMQ management via Docker
 docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
-Garantir que o PostgreSQL esteja rodando, com o banco usuarios_db criado.
+# Banco PostgreSQL rodando local
+# Build e execução
+./mvnw clean install
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 
+Acesso: http://localhost:8080/swagger-ui.html
 
-Executar o microsserviço:
+Status Microsserviço Transações (implementado por Ana)
 
+Funcionalidades Implementadas
 
-mvn clean install
-mvn spring-boot:run
+CRUD de Transações
 
-Acessar o Swagger:
+Consumer RabbitMQ (fila categoria.queue)
 
+Configuração de fila e listener (RabbitMQConfig + CategoriaConsumer)
 
-http://localhost:8080/swagger-ui.html
+Status Microsserviço Categorias (implementado por Letícia)
 
- Status do Microsserviço de Usuário:
+Funcionalidades Implementadas
 
-CRUD de Usuários
-Integração com PostgreSQL
-Documentação Swagger
-Produção de mensagens no RabbitMQ
-CORS habilitado para Flutter
+CRUD de Categorias
 
+Producer RabbitMQ (fila categoria.queue)
 
- Observações Finais:
--A integração assíncrona obrigatória do projeto está sendo realizada entre Categorias (Producer) e Transações (Consumer).
--O Microsserviço de Usuários funciona apenas como Producer no RabbitMQ, enviando mensagens sempre que um usuário é criado, atualizado ou deletado.
+Deploy e Integração (executado por Jhonathan)
 
+Concluído
 
+Provisionamento de instância RabbitMQ na nuvem (CloudAMQP)
 
+Configuração de profiles Spring Boot (dev para local, padrão para produção)
+
+Uso de variáveis de ambiente no Render para RabbitMQ
+
+Script Bash para organizar pacotes e corrigir declarações de package
+
+Deploy inicial do microsserviço de Usuário no Render (versão de staging)
+
+Em Andamento / Pendências
+
+Provisionar banco PostgreSQL em nuvem (ElephantSQL ou semelhante)
+
+Configurar variáveis de ambiente de banco no ambiente de produção
+
+Ajustar pipeline CI/CD para builds automatizados e testes (GitHub Actions ou Render Autoscale)
+
+Documentar endpoint de mensageria no Swagger UI em produção
+
+Integrar front-end Flutter com endpoints em produção
+
+Testes de carga e resiliência (retry/backoff RabbitMQ)
+
+***Próximos Passos Gerais  faltantes**
+
+Criar instância PostgreSQL em nuvem e configurar no Render
+
+Completar CI/CD: GitHub Actions para build, testes e deploy automático
+
+Implementar monitoramento e alertas (logs centralizados, health checks)
+
+Validar fluxo end-to-end: Flutter ↔ Usuários/Categorias/Transações
+
+Realizar testes de usabilidade no app Flutter
+
+Preparar documentação final e apresentação do projeto
 
