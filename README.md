@@ -76,7 +76,7 @@ Microsserviço de Usuário
 
 ---
 
-### 📡 Exemplo de Configuração RabbitMQ no `application.properties`:
+###  Exemplo de Configuração RabbitMQ no `application.properties`:
 
 
 spring.rabbitmq.host=localhost
