@@ -1,7 +1,6 @@
 Microsserviço de Usuario - Projeto Final Integrado - ADS 5º Semestre-
 -
-
-🎯 Tema: Sistema Aplicativo com Backend em Microsserviços e Entrega Contínua
+Tema: Sistema Aplicativo com Backend em Microsserviços e Entrega Contínua
 -
 
 
@@ -15,7 +14,7 @@ PTBDDMA: Desenvolvimento para Dispositivos Móveis (Prof. Renato Montanher)
 
 ---
 
-✅ Grupo:
+Grupo:
 
 Gabriele de Barros Oliveira – Microsserviço Usuários
 
@@ -29,7 +28,7 @@ Matheus – Front-end Flutter
 
 ---
 
-📌 Descrição Geral do Projeto
+Descrição Geral do Projeto
 
 O objetivo do projeto foi criar uma solução tecnológica para Gestão Financeira Pessoal, permitindo que os usuários controlem seus gastos, cadastrem categorias e registrem transações financeiras.
 
@@ -37,12 +36,12 @@ O objetivo do projeto foi criar uma solução tecnológica para Gestão Financei
 
 A solução contém:
 
-✅ Um aplicativo móvel funcional (em Flutter)
-✅ Um backend dividido em 3 microsserviços independentes
-✅ Mensageria assíncrona com RabbitMQ
-✅ Deploy automatizado usando técnicas de DevOps
----
-✅ Estrutura de Microsserviços (Backend)
+Um aplicativo móvel funcional (em Flutter)
+Um backend dividido em 3 microsserviços independentes
+Mensageria assíncrona com RabbitMQ
+Deploy automatizado usando técnicas de DevOps
+--- 
+Estrutura de Microsserviços (Backend)
 
 | Microsserviço | Responsável | Funcionalidades | Comunicação |
 |---|---|---|---|
@@ -52,9 +51,9 @@ A solução contém:
 
 ---
 
-## ✅Microsserviço de Usuário
+Microsserviço de Usuário
 
-### Principais Funcionalidades:
+ Principais Funcionalidades:
 
 - CRUD de Usuários (Endpoints REST via Spring Boot)
 - Integração com PostgreSQL
@@ -65,7 +64,7 @@ A solução contém:
 
 ---
 
-### 🧰 Tecnologias utilizadas no Microsserviço de Usuários:
+## Tecnologias utilizadas no Microsserviço de Usuários:
 
 - Java 17 + Spring Boot
 - Maven
@@ -87,7 +86,7 @@ spring.rabbitmq.host=localhost
 
 ---
 
-### ✅ Estrutura de Pacotes do Microsserviço Usuário:
+###  Estrutura de Pacotes do Microsserviço Usuário:
 
 
 src/main/java/com/gabi/usuario
@@ -105,7 +104,7 @@ src/main/java/com/gabi/usuario
 
 ---
 
-### ✅ Como Rodar Localmente:
+###  Como Rodar Localmente:
 
 1. **Subir o RabbitMQ com Docker:**
 
@@ -126,16 +125,16 @@ Acessar o Swagger:
 
 http://localhost:8080/swagger-ui.html
 
-✅ Status do Microsserviço de Usuário:
+ Status do Microsserviço de Usuário:
 
-CRUD de Usuários✅
-Integração com PostgreSQL✅
-Documentação Swagger✅
-Produção de mensagens no RabbitMQ✅
-CORS habilitado para Flutter✅
+CRUD de Usuários
+Integração com PostgreSQL
+Documentação Swagger
+Produção de mensagens no RabbitMQ
+CORS habilitado para Flutter
 
 
-✅ Observações Finais:
+ Observações Finais:
 -A integração assíncrona obrigatória do projeto está sendo realizada entre Categorias (Producer) e Transações (Consumer).
 -O Microsserviço de Usuários funciona apenas como Producer no RabbitMQ, enviando mensagens sempre que um usuário é criado, atualizado ou deletado.
 
